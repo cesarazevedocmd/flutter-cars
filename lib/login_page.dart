@@ -14,31 +14,35 @@ class LoginPage extends StatelessWidget {
   _body() {
     return ListView(
       children: [
-        TextFormField(
-          style: TextStyle(color: Colors.blue, fontSize: 20),
-          decoration: InputDecoration(
-            labelText: "Login",
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-        ),
-        SizedBox(height: 10),
-        TextFormField(
-          obscureText: true,
-          style: TextStyle(color: Colors.blue, fontSize: 20),
-          decoration: InputDecoration(
-            labelText: "Password",
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
-          ),
-        ),
-        SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            "LOGIN",
-            style: TextStyle(fontSize: 18),
-          ),
-        )
+        _myTextFormField("Login"),
+        _verticalSpace(10),
+        _myTextFormField("Password", hideText: true),
+        _verticalSpace(10),
+        _buttonLogin()
       ],
+    );
+  }
+
+  ElevatedButton _buttonLogin() {
+    return ElevatedButton(
+        onPressed: () {},
+        child: Text(
+          "LOGIN",
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+  }
+
+  SizedBox _verticalSpace(double value) => SizedBox(height: value);
+
+  TextFormField _myTextFormField(String label, {bool hideText = false}) {
+    return TextFormField(
+      style: TextStyle(color: Colors.blue, fontSize: 20),
+      obscureText: hideText,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
+      ),
     );
   }
 }
