@@ -18,9 +18,14 @@ class LoginPage extends StatelessWidget {
       key: _formKey,
       child: ListView(
         children: [
-          _myTextFormField("Login", _loginEditinContoller, validator: _validateLogin),
+          _myTextFormField("Login", _loginEditinContoller,
+              validator: _validateLogin, keyboardType: TextInputType.emailAddress, inputAction: TextInputAction.next),
           _verticalSpace(10),
-          _myTextFormField("Password", _passwordEditinContoller, validator: _validatePassword, hideText: true),
+          _myTextFormField("Password", _passwordEditinContoller,
+              validator: _validatePassword,
+              keyboardType: TextInputType.number,
+              inputAction: TextInputAction.done,
+              hideText: true),
           _verticalSpace(10),
           _buttonLogin()
         ],
@@ -46,8 +51,13 @@ class LoginPage extends StatelessWidget {
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
 
   TextFormField _myTextFormField(String label, TextEditingController controller,
-      {bool hideText = false, FormFieldValidator<String> validator}) {
+      {bool hideText = false,
+      FormFieldValidator<String> validator,
+      TextInputType keyboardType,
+      TextInputAction inputAction}) {
     return TextFormField(
+      keyboardType: keyboardType,
+      textInputAction: inputAction,
       validator: validator,
       controller: controller,
       style: TextStyle(color: Colors.blue, fontSize: 20),
