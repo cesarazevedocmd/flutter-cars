@@ -14,18 +14,30 @@ class LoginPage extends StatelessWidget {
   _body() {
     return ListView(
       children: [
-        Text("Login"),
-        TextFormField(),
+        TextFormField(
+          style: TextStyle(color: Colors.blue, fontSize: 20),
+          decoration: InputDecoration(
+            labelText: "Login",
+            labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+        ),
         SizedBox(height: 10),
-        Text("Password"),
-        TextFormField(obscureText: true),
+        TextFormField(
+          obscureText: true,
+          style: TextStyle(color: Colors.blue, fontSize: 20),
+          decoration: InputDecoration(
+            labelText: "Password",
+            labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+        ),
         SizedBox(height: 10),
         ElevatedButton(
-            onPressed: () {},
-            child: Text(
-              "LOGIN",
-              style: TextStyle(fontSize: 18),
-            ))
+          onPressed: () {},
+          child: Text(
+            "LOGIN",
+            style: TextStyle(fontSize: 18),
+          ),
+        )
       ],
     );
   }
