@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  var _loginEditinContoller = TextEditingController();
-  var _passwordEditinContoller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _loginEditinContoller = TextEditingController();
+  final _passwordEditinContoller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,23 +14,23 @@ class LoginPage extends StatelessWidget {
   }
 
   _body() {
-    return ListView(
-      children: [
-        _myTextFormField("Login", _loginEditinContoller),
-        _verticalSpace(10),
-        _myTextFormField("Password", _passwordEditinContoller, hideText: true),
-        _verticalSpace(10),
-        _buttonLogin()
-      ],
+    return Form(
+      key: _formKey,
+      child: ListView(
+        children: [
+          _myTextFormField("Login", _loginEditinContoller, validator: _validateLogin),
+          _verticalSpace(10),
+          _myTextFormField("Password", _passwordEditinContoller, validator: _validatePassword, hideText: true),
+          _verticalSpace(10),
+          _buttonLogin()
+        ],
+      ),
     );
   }
 
   ElevatedButton _buttonLogin() {
     return ElevatedButton(
-      onPressed: () {
-        print(
-            "Login: ${_loginEditinContoller.text} => Password: ${_passwordEditinContoller.text}");
-      },
+      onPressed: _onClickLogin,
       child: Text(
         "LOGIN",
         style: TextStyle(fontSize: 18),
@@ -37,11 +38,17 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  void _onClickLogin() {
+    if (!_formKey.currentState.validate()) return;
+    print("Login: ${_loginEditinContoller.text} => Password: ${_passwordEditinContoller.text}");
+  }
+
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
 
   TextFormField _myTextFormField(String label, TextEditingController controller,
-      {bool hideText = false}) {
+      {bool hideText = false, FormFieldValidator<String> validator}) {
     return TextFormField(
+      validator: validator,
       controller: controller,
       style: TextStyle(color: Colors.blue, fontSize: 20),
       obscureText: hideText,
@@ -50,5 +57,17 @@ class LoginPage extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey, fontSize: 16),
       ),
     );
+  }
+
+  String _validateLogin(String text) {
+    return text.isEmpty ? "Fill up login" : null;
+  }
+
+  String _validatePassword(String text) {
+    if (text.isEmpty) return "Fill up password";
+
+    if (text.length < 3) return "Password must be at least 3 digits";
+
+    return null;
   }
 }
