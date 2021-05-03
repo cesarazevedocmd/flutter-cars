@@ -7,7 +7,11 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Cars"), centerTitle: true),
-      body: Container(color: Colors.white),
+      body: _body(),
     );
+  }
+
+  _body() {
+    return Container();
   }
 }

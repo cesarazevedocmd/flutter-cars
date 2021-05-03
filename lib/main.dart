@@ -7,13 +7,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.amber
-      ),
+          primarySwatch: Colors.amber,
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white),
       home: LoginPage(),
     );
   }
