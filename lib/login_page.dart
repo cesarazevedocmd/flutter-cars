@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final _loginEditinContoller = TextEditingController();
-  final _passwordEditinContoller = TextEditingController();
+  final _loginEditingController = TextEditingController();
+  final _passwordEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class LoginPage extends StatelessWidget {
       key: _formKey,
       child: ListView(
         children: [
-          _myTextFormField("Login", _loginEditinContoller,
+          _myTextFormField("Login", _loginEditingController,
               validator: _validateLogin, keyboardType: TextInputType.emailAddress, inputAction: TextInputAction.next),
           _verticalSpace(10),
-          _myTextFormField("Password", _passwordEditinContoller,
+          _myTextFormField("Password", _passwordEditingController,
               validator: _validatePassword,
               keyboardType: TextInputType.number,
               inputAction: TextInputAction.done,
@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
 
   void _onClickLogin() {
     if (!_formKey.currentState.validate()) return;
-    print("Login: ${_loginEditinContoller.text} => Password: ${_passwordEditinContoller.text}");
+    print("Login: ${_loginEditingController.text} => Password: ${_passwordEditingController.text}");
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
