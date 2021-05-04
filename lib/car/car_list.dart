@@ -1,7 +1,7 @@
-import 'package:car_project/menu/drawer_list.dart';
+import 'package:car_project/car/drawer_list.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class CarList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
