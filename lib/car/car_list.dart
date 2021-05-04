@@ -20,18 +20,23 @@ class _CarListState extends State<CarList> {
     );
   }
 
-  _body() {
+  FutureBuilder _body() {
     var future = CarApi.loadCars();
 
-    FutureBuilder(
+    return FutureBuilder(
       future: future,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          ApiResponse response = snapshot.data;
-          return _carListWidget(response.result);
-        } else {
+        if (snapshot.hasError) {
+          print("ERROR LOAD CARS : ${snapshot.error}");
+          return Center(child: Text("Cars not loaded", style: TextStyle(color: Colors.red, fontSize: 20)));
+        }
+
+        if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
+
+        ApiResponse response = snapshot.data;
+        return _carListWidget(response.result);
       },
     );
   }
@@ -50,7 +55,7 @@ class _CarListState extends State<CarList> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: Image.network(car.urlFoto, height: 150, fit: BoxFit.cover)),
+                  _carImage(car),
                   Text(car.nome, style: TextStyle(fontSize: 22)),
                   Text("Descrição...", style: TextStyle(fontSize: 16)),
                   _buttons(),
@@ -61,6 +66,12 @@ class _CarListState extends State<CarList> {
         },
       ),
     );
+  }
+
+  Center _carImage(Car car) {
+    if (car.urlFoto != null && car.urlFoto.isNotEmpty)
+      return Center(child: Image.network(car.urlFoto, height: 150));
+    return Center(child: Text("Photo not found"));
   }
 
   ButtonBarTheme _buttons() {

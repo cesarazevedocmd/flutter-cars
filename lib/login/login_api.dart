@@ -15,8 +15,6 @@ class LoginApi {
 
       var result = await http.post(Uri.parse(url), headers: headers, body: json.encode(params));
 
-      print("STATUS => ${result.statusCode}");
-      print("BODY => ${result.body}");
       Map resultBody = json.decode(result.body);
 
       if (result.statusCode == 200 || result.statusCode == 201) {
@@ -24,7 +22,6 @@ class LoginApi {
       }
       return ApiResponse.error(resultBody["error"]);
     } catch(error, exception){
-      print("Login error $error => $exception");
       return ApiResponse.error("Login error $error => $exception");
     }
   }
