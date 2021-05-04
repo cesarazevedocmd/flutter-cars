@@ -18,7 +18,7 @@ class CarApi {
     List bodyList = json.decode(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      List<Car> carList = bodyList.map<Car>((e) => Car.fromJson(e)).toList();
+      final carList = bodyList.map<Car>((e) => Car.fromJson(e)).toList();
       return ApiResponse.ok(carList);
     }
     return ApiResponse.ok([]);
