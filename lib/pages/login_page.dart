@@ -1,3 +1,4 @@
+import 'package:car_project/pages/login_api.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -53,10 +54,21 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onClickLogin() {
+  void _onClickLogin() async {
     if (!_formKey.currentState.validate()) return;
-    print("Login: ${_loginEditingController.text} => Password: ${_passwordEditingController.text}");
-    push(context, HomePage());
+
+    var login = _loginEditingController.text;
+    var password = _passwordEditingController.text;
+
+    print("Login: $login => Password: $password");
+
+    var result = await LoginApi.login(login, password);
+
+    if (result) {
+      push(context, HomePage());
+    } else {
+      print("LOGIN FAIL");
+    }
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
