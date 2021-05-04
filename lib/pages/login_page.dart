@@ -1,8 +1,18 @@
+import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+import 'home_page.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
   final _loginEditingController = TextEditingController();
+
   final _passwordEditingController = TextEditingController();
 
   @override
@@ -46,6 +56,7 @@ class LoginPage extends StatelessWidget {
   void _onClickLogin() {
     if (!_formKey.currentState.validate()) return;
     print("Login: ${_loginEditingController.text} => Password: ${_passwordEditingController.text}");
+    push(context, HomePage());
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
