@@ -15,6 +15,17 @@ class LoginApi {
     print("STATUS => ${response.statusCode}");
     print("BODY => ${response.body}");
 
-    return response.statusCode == 200 || response.statusCode == 201;
+    if (response.statusCode == 200 || response.statusCode == 201){
+
+      Map mapResponse = json.decode(response.body);
+      String name = mapResponse["nome"];
+      String email = mapResponse["email"];
+
+      print("NAME => $name");
+      print("EMAIL => $email");
+
+      return true;
+    }
+    return false;
   }
 }
