@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (apiResponse.success) {
       print(apiResponse.result);
-      push(context, HomePage());
+      push(context, HomePage(), replace: true);
     } else {
       alert(context, apiResponse.error);
     }
