@@ -1,4 +1,5 @@
 import 'package:car_project/car/car_listview.dart';
+import 'package:car_project/car/car_type.dart';
 import 'package:car_project/car/drawer_list.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +28,9 @@ class _CarListState extends State<CarList> {
         drawer: DrawerList(),
         body: TabBarView(
           children: [
-            CarListView(),
-            CarListView(),
-            CarListView(),
+            CarListView(CarType.classic),
+            CarListView(CarType.sport),
+            CarListView(CarType.lux),
           ],
         ),
       ),

@@ -73,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse apiResponse = await LoginApi.login(login, password);
 
     if (apiResponse.success) {
-      print(apiResponse.result);
       push(context, CarList(), replace: true);
     } else {
       alert(context, apiResponse.error);

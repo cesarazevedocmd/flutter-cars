@@ -1,10 +1,14 @@
 import 'package:car_project/api/api_response.dart';
+import 'package:car_project/car/car_type.dart';
 import 'package:flutter/material.dart';
 
 import 'car.dart';
 import 'car_api.dart';
 
 class CarListView extends StatefulWidget {
+  CarType _type;
+
+  CarListView(this._type);
 
   @override
   _CarListViewState createState() => _CarListViewState();
@@ -17,7 +21,7 @@ class _CarListViewState extends State<CarListView> {
   }
 
   FutureBuilder _body() {
-    var future = CarApi.loadCars();
+    var future = CarApi.loadCars(widget._type);
 
     return FutureBuilder(
       future: future,
@@ -65,8 +69,7 @@ class _CarListViewState extends State<CarListView> {
   }
 
   Center _carImage(Car car) {
-    if (car.urlFoto != null && car.urlFoto.isNotEmpty)
-      return Center(child: Image.network(car.urlFoto, height: 150));
+    if (car.urlFoto != null && car.urlFoto.isNotEmpty) return Center(child: Image.network(car.urlFoto, height: 150));
     return Center(child: Text("Photo not found"));
   }
 
