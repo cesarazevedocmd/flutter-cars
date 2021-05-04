@@ -8,6 +8,8 @@ class Car {
   String latitude;
   String longitude;
 
+  Car({this.id, this.nome, this.tipo, this.descricao, this.urlFoto, this.urlVideo, this.latitude, this.longitude});
+
   Car.fromJson(Map<String, dynamic> map) {
     this.id = map["id"];
     this.nome = map["nome"];
