@@ -10,7 +10,7 @@ class User {
     nome = map["nome"];
     email = map["email"];
     token = map["token"];
-    roles = map["roles"]?.map["roles"].map<String>((role) => role.toString()).toList();
+    roles = map["roles"]?.map<String>((role) => role.toString())?.toList();
   }
 
   @override

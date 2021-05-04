@@ -1,4 +1,6 @@
+import 'package:car_project/api_respose.dart';
 import 'package:car_project/pages/login_api.dart';
+import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -62,13 +64,13 @@ class _LoginPageState extends State<LoginPage> {
 
     print("Login: $login => Password: $password");
 
-    var user = await LoginApi.login(login, password);
+    ApiResponse apiResponse = await LoginApi.login(login, password);
 
-    if (user != null) {
-      print(user);
+    if (apiResponse.success) {
+      print(apiResponse.result);
       push(context, HomePage());
     } else {
-      print("LOGIN FAIL");
+      alert(context, apiResponse.error);
     }
   }
 
