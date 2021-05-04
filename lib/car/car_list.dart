@@ -8,7 +8,7 @@ class CarList extends StatefulWidget {
   _CarListState createState() => _CarListState();
 }
 
-class _CarListState extends State<CarList> {
+class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<CarList> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -19,9 +19,9 @@ class _CarListState extends State<CarList> {
           centerTitle: true,
           bottom: TabBar(
             tabs: [
-              Text("CLASSIC"),
-              Text("SPORT"),
-              Text("LUX"),
+              Tab(text: "CLASSIC"),
+              Tab(text: "SPORT"),
+              Tab(text: "LUX"),
             ],
           ),
         ),

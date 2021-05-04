@@ -6,7 +6,7 @@ import 'car.dart';
 import 'car_api.dart';
 
 class CarListView extends StatefulWidget {
-  CarType _type;
+  final CarType _type;
 
   CarListView(this._type);
 
@@ -14,9 +14,13 @@ class CarListView extends StatefulWidget {
   _CarListViewState createState() => _CarListViewState();
 }
 
-class _CarListViewState extends State<CarListView> {
+class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClientMixin<CarListView> {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return _body();
   }
 
