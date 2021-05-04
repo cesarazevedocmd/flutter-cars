@@ -62,9 +62,10 @@ class _LoginPageState extends State<LoginPage> {
 
     print("Login: $login => Password: $password");
 
-    var result = await LoginApi.login(login, password);
+    var user = await LoginApi.login(login, password);
 
-    if (result) {
+    if (user != null) {
+      print(user);
       push(context, HomePage());
     } else {
       print("LOGIN FAIL");
