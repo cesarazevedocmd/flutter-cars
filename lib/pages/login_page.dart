@@ -12,6 +12,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _showLoading = false;
+
   final _formKey = GlobalKey<FormState>();
 
   final _loginEditingController = TextEditingController();
@@ -40,18 +42,20 @@ class _LoginPageState extends State<LoginPage> {
               inputAction: TextInputAction.done,
               hideText: true),
           _verticalSpace(10),
-          _buttonLogin()
+          _buttonLogin(showLoading: _showLoading)
         ],
       ),
     );
   }
 
-  ElevatedButton _buttonLogin() {
-    return ElevatedButton(
-      onPressed: _onClickLogin,
-      child: Text(
-        "LOGIN",
-        style: TextStyle(fontSize: 18),
+  _buttonLogin({bool showLoading = false}) {
+    return Container(
+      height: 46,
+      child: ElevatedButton(
+        onPressed: _onClickLogin,
+        child: showLoading
+            ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.black)))
+            : Text("LOGIN", style: TextStyle(fontSize: 22, color: Colors.black)),
       ),
     );
   }
@@ -62,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
     var login = _loginEditingController.text;
     var password = _passwordEditingController.text;
 
-    print("Login: $login => Password: $password");
+    setState(() {
+      _showLoading = true;
+    });
 
     ApiResponse apiResponse = await LoginApi.login(login, password);
 
@@ -72,6 +78,10 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       alert(context, apiResponse.error);
     }
+
+    setState(() {
+      _showLoading = false;
+    });
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
