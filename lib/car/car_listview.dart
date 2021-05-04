@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'car.dart';
 import 'car_api.dart';
 
-class CarsListView extends StatefulWidget {
+class CarListView extends StatefulWidget {
 
   @override
-  _CarsListViewState createState() => _CarsListViewState();
+  _CarListViewState createState() => _CarListViewState();
 }
 
-class _CarsListViewState extends State<CarsListView> {
+class _CarListViewState extends State<CarListView> {
   @override
   Widget build(BuildContext context) {
     return _body();
