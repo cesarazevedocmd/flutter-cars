@@ -9,30 +9,40 @@ class CarList extends StatefulWidget {
 }
 
 class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<CarList> {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 3, initialIndex: 1);
+    _tabController.addListener(() {
+      print("INDEX SELECTED: ${_tabController.index}");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Carros"),
-          centerTitle: true,
-          bottom: TabBar(
-            tabs: [
-              Tab(text: "CLASSIC"),
-              Tab(text: "SPORT"),
-              Tab(text: "LUX"),
-            ],
-          ),
-        ),
-        drawer: DrawerList(),
-        body: TabBarView(
-          children: [
-            CarListView(CarType.classic),
-            CarListView(CarType.sport),
-            CarListView(CarType.lux),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Carros"),
+        centerTitle: true,
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: "CLASSIC"),
+            Tab(text: "SPORT"),
+            Tab(text: "LUX"),
           ],
         ),
+      ),
+      drawer: DrawerList(),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          CarListView(CarType.classic),
+          CarListView(CarType.sport),
+          CarListView(CarType.lux),
+        ],
       ),
     );
   }

@@ -54,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
       child: ElevatedButton(
         onPressed: _onClickLogin,
         child: showLoading
-            ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.black)))
-            : Text("LOGIN", style: TextStyle(fontSize: 22, color: Colors.black)),
+            ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)))
+            : Text("LOGIN", style: TextStyle(fontSize: 22, color: Colors.white)),
       ),
     );
   }
