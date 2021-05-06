@@ -27,28 +27,41 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
 
   @override
   Widget build(BuildContext context) {
+    print("STARTING TAB VAR VIEW");
     return Scaffold(
       appBar: AppBar(
         title: Text("Carros"),
         centerTitle: true,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: "CLASSIC"),
-            Tab(text: "SPORT"),
-            Tab(text: "LUX"),
-          ],
-        ),
+        bottom: _tabBarOrNull(),
       ),
       drawer: DrawerList(),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          CarListView(CarType.classic),
-          CarListView(CarType.sport),
-          CarListView(CarType.lux),
-        ],
-      ),
+      body: _tabBarViewOrNull(),
     );
+  }
+
+  TabBarView _tabBarViewOrNull() {
+    return _tabController == null
+        ? Center(child: CircularProgressIndicator())
+        : TabBarView(
+            controller: _tabController,
+            children: [
+              CarListView(CarType.classic),
+              CarListView(CarType.sport),
+              CarListView(CarType.lux),
+            ],
+          );
+  }
+
+  TabBar _tabBarOrNull() {
+    return _tabController == null
+        ? null
+        : TabBar(
+            controller: _tabController,
+            tabs: [
+              Tab(text: "CLASSIC"),
+              Tab(text: "SPORT"),
+              Tab(text: "LUX"),
+            ],
+          );
   }
 }
