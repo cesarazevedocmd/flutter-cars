@@ -20,22 +20,33 @@ class _DrawerListState extends State<DrawerList> {
 
     return SafeArea(
       child: Drawer(
-          child: _userNotLoaded
-              ? Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: [
-                    UserAccountsDrawerHeader(
-                      accountName: Text(_name),
-                      accountEmail: Text(_email),
-                      currentAccountPicture: CircleAvatar(child: _urlPhoto.isEmpty ? null : Image.network(_urlPhoto)),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text("Sign out"),
-                      onTap: () => _onClickLogout(context),
-                    )
-                  ],
-                )),
+        child: ListView(
+          children: [
+            _userNotLoaded ? _loader() : _header(),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Sign out"),
+              onTap: () => _onClickLogout(context),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Center _loader() {
+    return Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation(Colors.white),
+      ),
+    );
+  }
+
+  UserAccountsDrawerHeader _header() {
+    return UserAccountsDrawerHeader(
+      accountName: Text(_name),
+      accountEmail: Text(_email),
+      currentAccountPicture: CircleAvatar(backgroundImage: _urlPhoto.isEmpty ? null : NetworkImage(_urlPhoto)),
     );
   }
 
