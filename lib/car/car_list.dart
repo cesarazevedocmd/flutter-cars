@@ -27,7 +27,6 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
 
   @override
   Widget build(BuildContext context) {
-    print("STARTING TAB VAR VIEW");
     return Scaffold(
       appBar: AppBar(
         title: Text("Carros"),
