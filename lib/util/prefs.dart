@@ -13,7 +13,7 @@ class Prefs {
 
   static Future<int> getInt(String key) async {
     var prefs = await _getPref();
-    return prefs.getInt(key) ?? false;
+    return prefs.getInt(key) ?? 0;
   }
 
   static void setInt(String key, int value) async {
@@ -23,7 +23,7 @@ class Prefs {
 
   static Future<String> getString(String key) async {
     var prefs = await _getPref();
-    return prefs.getString(key) ?? false;
+    return prefs.getString(key) ?? "";
   }
 
   static void setString(String key, String value) async {
@@ -33,7 +33,7 @@ class Prefs {
 
   static Future<double> getDouble(String key) async {
     var prefs = await _getPref();
-    return prefs.getDouble(key) ?? false;
+    return prefs.getDouble(key) ?? 0.0;
   }
 
   static void setDouble(String key, double value) async {
