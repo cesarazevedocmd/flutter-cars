@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/login/user.dart';
+import 'package:car_project/login/user_manager.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApi {
@@ -18,7 +19,9 @@ class LoginApi {
       Map resultBody = json.decode(result.body);
 
       if (result.statusCode == 200 || result.statusCode == 201) {
-        return ApiResponse.ok(User.fromJson(resultBody));
+        final user = User.fromJson(resultBody);
+        UserManager.saveUser(user);
+        return ApiResponse.ok(user);
       }
       return ApiResponse.error(resultBody["error"]);
     } catch(error, exception){
