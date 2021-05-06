@@ -1,6 +1,7 @@
 import 'package:car_project/car/car_listview.dart';
 import 'package:car_project/car/car_type.dart';
 import 'package:car_project/car/drawer_list.dart';
+import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 
 class CarList extends StatefulWidget {
@@ -14,9 +15,13 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 3, initialIndex: 1);
+
+    _tabController = TabController(vsync: this, length: 3);
     _tabController.addListener(() {
-      print("INDEX SELECTED: ${_tabController.index}");
+      Prefs.setInt("tabIndex", _tabController.index);
+    });
+    Prefs.getInt("tabIndex").then((value) {
+      _tabController.index = value;
     });
   }
 
