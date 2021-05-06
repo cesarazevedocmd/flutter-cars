@@ -1,5 +1,6 @@
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/login/login_api.dart';
+import 'package:car_project/login/user_manager.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,21 @@ class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _loginEditingController = TextEditingController(text: "admin");
+  final _loginEditingController = TextEditingController();
 
-  final _passwordEditingController = TextEditingController(text: "123");
+  final _passwordEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    UserManager.getUser().then((user) {
+      if (user != null) {
+        setState(() {
+          _loginEditingController.text = user.nome;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

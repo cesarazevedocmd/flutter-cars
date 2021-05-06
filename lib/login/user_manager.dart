@@ -16,4 +16,8 @@ class UserManager {
     if (userJson.isNotEmpty) return User.fromJson(json.decode(userJson));
     return null;
   }
+
+  static void clearUser() {
+    Prefs.setString("user.prefs", "");
+  }
 }

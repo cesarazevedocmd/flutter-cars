@@ -9,18 +9,25 @@ import 'car.dart';
 
 class CarApi {
   static Future<ApiResponse<List<Car>>> loadCars(CarType type) async {
-    var url = Uri.parse("https://carros-springboot.herokuapp.com/api/v2/carros/tipo/${type.getType()}");
-    final token = (await UserManager.getUser()).token;
-    var headers = {"Content-Type": "application/json", "Authorization": "Bearer $token"};
+    try {
+      var url = Uri.parse("https://carros-springboot.herokuapp.com/api/v2/carros/tipo/${type.getType()}");
+      final token = (await UserManager.getUser()).token;
+      var headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      };
 
-    var response = await http.get(url, headers: headers);
+      var response = await http.get(url, headers: headers);
 
-    List bodyList = json.decode(response.body);
+      List bodyList = json.decode(response.body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final carList = bodyList.map<Car>((e) => Car.fromJson(e)).toList();
-      return ApiResponse.ok(carList);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final carList = bodyList.map<Car>((e) => Car.fromJson(e)).toList();
+        return ApiResponse.ok(carList);
+      }
+      return ApiResponse.ok([]);
+    } catch (error) {
+      throw error;
     }
-    return ApiResponse.ok([]);
   }
 }
