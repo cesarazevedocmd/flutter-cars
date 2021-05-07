@@ -1,5 +1,7 @@
 import 'package:car_project/api/api_response.dart';
+import 'package:car_project/car/car_details_page.dart';
 import 'package:car_project/car/car_type.dart';
+import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
 import 'car.dart';
@@ -62,7 +64,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
                   _carImage(car),
                   Text(car.nome, style: TextStyle(fontSize: 22)),
                   Text("Descrição...", style: TextStyle(fontSize: 16)),
-                  _buttons(),
+                  _buttons(car),
                 ],
               ),
             ),
@@ -77,13 +79,21 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
     return Center(child: Text("Photo not found"));
   }
 
-  ButtonBarTheme _buttons() {
+  ButtonBarTheme _buttons(Car car) {
     return ButtonBarTheme(
       data: ButtonBarTheme.of(context),
       child: ButtonBar(
         children: [
-          TextButton(onPressed: () {}, child: Text("DETAILS")),
-          TextButton(onPressed: () {}, child: Text("SHARE")),
+          TextButton(
+            child: Text("DETAILS"),
+            onPressed: () {
+              push(context, CarDetailsPage(car));
+            },
+          ),
+          TextButton(
+            child: Text("SHARE"),
+            onPressed: () {},
+          ),
         ],
       ),
     );
