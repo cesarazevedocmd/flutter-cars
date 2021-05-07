@@ -11,6 +11,7 @@ class CarApi {
   static Future<ApiResponse<List<Car>>> loadCars(CarType type) async {
     try {
       var url = Uri.parse("https://carros-springboot.herokuapp.com/api/v2/carros/tipo/${type.getType()}");
+      print("GET => $url");
       final token = (await UserManager.getUser()).token;
       var headers = {
         "Content-Type": "application/json",

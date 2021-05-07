@@ -20,31 +20,42 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 
+  ApiResponse<List<Car>> _responseCars;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() {
+    CarApi.loadCars(widget._type).then((response) {
+      setState(() {
+        _responseCars = response;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return _body();
   }
 
-  FutureBuilder _body() {
-    var future = CarApi.loadCars(widget._type);
+  _body() {
+    if (_responseCars == null) {
+      return Center(child: CircularProgressIndicator());
+    }
 
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print("ERROR LOAD CARS : ${snapshot.error}");
-          return Center(child: Text("Cars not loaded", style: TextStyle(color: Colors.red, fontSize: 20)));
-        }
+    if (!_responseCars.success) {
+      return Center(
+          child: Text(
+        "Cars not loaded ${_responseCars.error}",
+        style: TextStyle(color: Colors.red, fontSize: 20),
+      ));
+    }
 
-        if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        ApiResponse response = snapshot.data;
-        return _carListWidget(response.result);
-      },
-    );
+    return _carListWidget(_responseCars.result);
   }
 
   Container _carListWidget(List<Car> cars) {
