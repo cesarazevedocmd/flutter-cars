@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/car_details_page.dart';
 import 'package:car_project/car/car_type.dart';
@@ -20,20 +22,12 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 
-  ApiResponse<List<Car>> _responseCars;
+  final _streamController = StreamController<ApiResponse<List<Car>>>();
 
   @override
   void initState() {
     super.initState();
     _loadData();
-  }
-
-  void _loadData() {
-    CarApi.loadCars(widget._type).then((response) {
-      setState(() {
-        _responseCars = response;
-      });
-    });
   }
 
   @override
@@ -42,20 +36,28 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
     return _body();
   }
 
-  _body() {
-    if (_responseCars == null) {
-      return Center(child: CircularProgressIndicator());
-    }
+  void _loadData() async{
+    var apiResponse = await CarApi.loadCars(widget._type);
+    _streamController.add(apiResponse);
+  }
 
-    if (!_responseCars.success) {
-      return Center(
-          child: Text(
-        "Cars not loaded ${_responseCars.error}",
-        style: TextStyle(color: Colors.red, fontSize: 20),
-      ));
-    }
+  StreamBuilder _body() {
+    return StreamBuilder<ApiResponse<List<Car>>>(
+      stream: _streamController.stream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          print("ERROR LOAD CARS : ${snapshot.error}");
+          return Center(child: Text("Cars not loaded", style: TextStyle(color: Colors.red, fontSize: 20)));
+        }
 
-    return _carListWidget(_responseCars.result);
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        ApiResponse response = snapshot.data;
+        return _carListWidget(response.result);
+      },
+    );
   }
 
   Container _carListWidget(List<Car> cars) {
@@ -108,5 +110,11 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamController.close();
   }
 }
