@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/login/login_api.dart';
 import 'package:car_project/login/user_manager.dart';
@@ -13,13 +15,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _showLoading = false;
-
   final _formKey = GlobalKey<FormState>();
 
   final _loginEditingController = TextEditingController();
 
   final _passwordEditingController = TextEditingController();
+
+  final _streamController = StreamController<bool>();
 
   @override
   void initState() {
@@ -55,7 +57,13 @@ class _LoginPageState extends State<LoginPage> {
               inputAction: TextInputAction.done,
               hideText: true),
           _verticalSpace(10),
-          _buttonLogin(showLoading: _showLoading)
+          StreamBuilder(
+            initialData: false,
+            stream: _streamController.stream,
+            builder: (context, snapshot) {
+              return _buttonLogin(showLoading: snapshot.data);
+            },
+          ),
         ],
       ),
     );
@@ -79,9 +87,7 @@ class _LoginPageState extends State<LoginPage> {
     var login = _loginEditingController.text;
     var password = _passwordEditingController.text;
 
-    setState(() {
-      _showLoading = true;
-    });
+    _streamController.add(true);
 
     ApiResponse apiResponse = await LoginApi.login(login, password);
 
@@ -91,9 +97,7 @@ class _LoginPageState extends State<LoginPage> {
       alert(context, apiResponse.error);
     }
 
-    setState(() {
-      _showLoading = false;
-    });
+    _streamController.add(false);
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
