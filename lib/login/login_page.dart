@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               inputAction: TextInputAction.done,
               hideText: true),
           _verticalSpace(10),
-          StreamBuilder(
+          StreamBuilder<bool>(
             initialData: false,
             stream: _streamController.stream,
             builder: (context, snapshot) {
