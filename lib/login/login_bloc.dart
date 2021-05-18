@@ -5,7 +5,7 @@ import 'package:car_project/api/basic_stream.dart';
 import 'package:car_project/login/login_api.dart';
 import 'package:car_project/login/user.dart';
 
-class LoginBloc extends BasicStream<bool> {
+class LoginBloc extends BasicBloc<bool> {
   Future<ApiResponse<User>> doLogin(String login, String password) async {
     try {
       add(true);

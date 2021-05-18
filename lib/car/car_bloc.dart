@@ -6,7 +6,7 @@ import 'package:car_project/car/car.dart';
 import 'package:car_project/car/car_api.dart';
 import 'package:car_project/car/car_type.dart';
 
-class CarBloc extends BasicStream<List<Car>>{
+class CarBloc extends BasicBloc<List<Car>>{
 
   void load(CarType carType) async {
     try {
