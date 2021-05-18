@@ -1,13 +1,12 @@
-import 'dart:async';
-
 import 'package:car_project/api/api_response.dart';
-import 'package:car_project/login/login_api.dart';
 import 'package:car_project/login/user_manager.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
 import '../car/car_list.dart';
+import 'login_bloc.dart';
+import 'user.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _passwordEditingController = TextEditingController();
 
-  final _streamController = StreamController<bool>();
+  final LoginBloc _loginBloc = LoginBloc();
 
   @override
   void initState() {
@@ -59,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
           _verticalSpace(10),
           StreamBuilder<bool>(
             initialData: false,
-            stream: _streamController.stream,
+            stream: _loginBloc.stream,
             builder: (context, snapshot) {
               return _buttonLogin(showLoading: snapshot.data);
             },
@@ -87,17 +86,17 @@ class _LoginPageState extends State<LoginPage> {
     var login = _loginEditingController.text;
     var password = _passwordEditingController.text;
 
-    _streamController.add(true);
+    final apiResponse = await _loginBloc.doLogin(login, password);
 
-    ApiResponse apiResponse = await LoginApi.login(login, password);
+    validateResult(apiResponse);
+  }
 
+  void validateResult(ApiResponse<User> apiResponse) {
     if (apiResponse.success) {
       push(context, CarList(), replace: true);
     } else {
       alert(context, apiResponse.error);
     }
-
-    _streamController.add(false);
   }
 
   SizedBox _verticalSpace(double value) => SizedBox(height: value);
@@ -136,6 +135,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _streamController.close();
+    _loginBloc.dispose();
   }
 }

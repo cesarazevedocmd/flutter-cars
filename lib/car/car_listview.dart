@@ -1,13 +1,10 @@
-import 'dart:async';
-
-import 'package:car_project/api/api_response.dart';
-import 'package:car_project/car/car_details_page.dart';
 import 'package:car_project/car/car_type.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
 import 'car.dart';
-import 'car_api.dart';
+import 'car_bloc.dart';
+import 'car_details_page.dart';
 
 class CarListView extends StatefulWidget {
   final CarType _type;
@@ -22,7 +19,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
 
-  final _streamController = StreamController<ApiResponse<List<Car>>>();
+  CarBloc _carBloc = CarBloc();
 
   @override
   void initState() {
@@ -36,14 +33,13 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
     return _body();
   }
 
-  void _loadData() async{
-    var apiResponse = await CarApi.loadCars(widget._type);
-    _streamController.add(apiResponse);
+  void _loadData() async {
+    _carBloc.load(widget._type);
   }
 
   StreamBuilder _body() {
-    return StreamBuilder<ApiResponse<List<Car>>>(
-      stream: _streamController.stream,
+    return StreamBuilder<List<Car>>(
+      stream: _carBloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print("ERROR LOAD CARS : ${snapshot.error}");
@@ -54,8 +50,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
           return Center(child: CircularProgressIndicator());
         }
 
-        ApiResponse response = snapshot.data;
-        return _carListWidget(response.result);
+        return _carListWidget(snapshot.data);
       },
     );
   }
@@ -115,6 +110,6 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
   @override
   void dispose() {
     super.dispose();
-    _streamController.close();
+    _carBloc.dispose();
   }
 }
