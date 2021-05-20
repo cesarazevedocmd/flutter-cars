@@ -95,7 +95,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
           TextButton(
             child: Text("DETAILS"),
             onPressed: () {
-              push(context, CarDetailsPage(car));
+              push(context, CarDetails(car));
             },
           ),
           TextButton(
