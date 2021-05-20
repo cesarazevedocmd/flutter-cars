@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'car.dart';
 import 'car_bloc.dart';
-import 'car_details_page.dart';
+import 'car_details.dart';
 
 class CarListView extends StatefulWidget {
   final CarType _type;
