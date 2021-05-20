@@ -49,9 +49,16 @@ class _CarsPageState extends State<CarsPage> with AutomaticKeepAliveClientMixin<
           return Center(child: CircularProgressIndicator());
         }
 
-        return CarsListView(snapshot.data);
+        return RefreshIndicator(
+          onRefresh: _requestCars,
+          child: CarsListView(snapshot.data),
+        );
       },
     );
+  }
+
+  Future _requestCars() {
+    return _carBloc.load(widget._type);
   }
 
   @override

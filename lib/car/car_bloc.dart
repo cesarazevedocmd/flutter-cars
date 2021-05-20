@@ -8,12 +8,14 @@ import 'package:car_project/car/car_type.dart';
 
 class CarBloc extends BasicBloc<List<Car>>{
 
-  void load(CarType carType) async {
+  Future<List<Car>> load(CarType carType) async {
     try {
       ApiResponse<List<Car>> response = await CarApi.loadCars(carType);
       add(response.result);
+      return response.result;
     } catch (error) {
       addError(error);
+      return null;
     }
   }
 }
