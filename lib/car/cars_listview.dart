@@ -1,67 +1,22 @@
-import 'package:car_project/car/car_type.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
 import 'car.dart';
-import 'car_bloc.dart';
 import 'car_details.dart';
 
-class CarListView extends StatefulWidget {
-  final CarType _type;
+class CarsListView extends StatelessWidget {
+  List<Car> _cars;
 
-  CarListView(this._type);
-
-  @override
-  _CarListViewState createState() => _CarListViewState();
-}
-
-class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClientMixin<CarListView> {
-  @override
-  bool get wantKeepAlive => true;
-
-  CarBloc _carBloc = CarBloc();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
+  CarsListView(this._cars);
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return _body();
-  }
-
-  void _loadData() async {
-    _carBloc.load(widget._type);
-  }
-
-  StreamBuilder _body() {
-    return StreamBuilder<List<Car>>(
-      stream: _carBloc.stream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print("ERROR LOAD CARS : ${snapshot.error}");
-          return Center(child: Text("Cars not loaded", style: TextStyle(color: Colors.red, fontSize: 20)));
-        }
-
-        if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        return _carListWidget(snapshot.data);
-      },
-    );
-  }
-
-  Container _carListWidget(List<Car> cars) {
     return Container(
       padding: EdgeInsets.all(16),
       child: ListView.builder(
-        itemCount: cars != null ? cars.length : 0,
+        itemCount: _cars != null ? _cars.length : 0,
         itemBuilder: (BuildContext context, int index) {
-          Car car = cars[index];
+          Car car = _cars[index];
           return Card(
             color: Colors.grey[100],
             child: Container(
@@ -72,7 +27,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
                   _carImage(car),
                   Text(car.nome, style: TextStyle(fontSize: 22)),
                   Text("Descrição...", style: TextStyle(fontSize: 16)),
-                  _buttons(car),
+                  _buttons(context, car),
                 ],
               ),
             ),
@@ -87,7 +42,7 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
     return Center(child: Text("Photo not found"));
   }
 
-  ButtonBarTheme _buttons(Car car) {
+  ButtonBarTheme _buttons(BuildContext context, Car car) {
     return ButtonBarTheme(
       data: ButtonBarTheme.of(context),
       child: ButtonBar(
@@ -105,11 +60,5 @@ class _CarListViewState extends State<CarListView> with AutomaticKeepAliveClient
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _carBloc.dispose();
   }
 }

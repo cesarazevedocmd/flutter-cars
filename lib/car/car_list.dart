@@ -1,5 +1,5 @@
-import 'package:car_project/car/car_listview.dart';
 import 'package:car_project/car/car_type.dart';
+import 'package:car_project/car/cars_page.dart';
 import 'package:car_project/car/drawer_list.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +44,9 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
         : TabBarView(
             controller: _tabController,
             children: [
-              CarListView(CarType.classic),
-              CarListView(CarType.sport),
-              CarListView(CarType.lux),
+              CarsPage(CarType.classic),
+              CarsPage(CarType.sport),
+              CarsPage(CarType.lux),
             ],
           );
   }
