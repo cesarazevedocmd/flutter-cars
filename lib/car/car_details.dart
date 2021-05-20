@@ -1,18 +1,35 @@
 import 'package:car_project/car/car.dart';
+import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 
 import 'car_details_options_menu.dart';
 
-class CarDetails extends StatelessWidget {
+class CarDetails extends StatefulWidget {
   Car _car;
 
   CarDetails(this._car);
 
   @override
+  _CarDetailsState createState() => _CarDetailsState();
+}
+
+class _CarDetailsState extends State<CarDetails> {
+  bool _favorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Prefs.getBool("favorite_car_${widget._car.id}").then((result) {
+      setState(() => _favorite = result);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_car.nome),
+        title: Text(widget._car.nome),
         actions: [
           IconButton(
             onPressed: () {},
@@ -37,7 +54,7 @@ class CarDetails extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: [
-          Image.network(_car.urlFoto),
+          Image.network(widget._car.urlFoto),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -45,7 +62,7 @@ class CarDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _car.nome,
+                    widget._car.nome,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -53,7 +70,7 @@ class CarDetails extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    _car.tipo,
+                    widget._car.tipo,
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
@@ -61,8 +78,8 @@ class CarDetails extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.favorite, color: Colors.red, size: 40),
-                    onPressed: () {},
+                    icon: Icon(Icons.favorite, color: _favorite ? Colors.red : null, size: 40),
+                    onPressed: () => _onFavoriteClick(),
                   ),
                   IconButton(
                     icon: Icon(Icons.share, color: Colors.blueGrey, size: 40),
@@ -77,7 +94,7 @@ class CarDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              Text(_car.descricao, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(widget._car.descricao, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Text(
                   "Lorem ipsum condimentum elementum quisque etiam orci himenaeos ligula ut torquent proin ultrices, dapibus inceptos vel ut diam quisque elit nam neque mauris id elementum tellus, ut fermentum ultricies rhoncus curabitur etiam sapien auctor rhoncus quis senectus. aenean augue porta ad ante hac mauris, vitae a curabitur eros sodales curabitur, urna vel massa mauris semper. id varius quis massa eros eget euismod commodo, per duis eget auctor egestas porttitor, nisi duis elit ad fringilla cras. placerat dapibus hac nec fusce dui phasellus eu congue tortor, sit massa lacinia fames lobortis egestas duis hac orci, vivamus erat vitae eleifend non duis risus pellentesque."
@@ -89,5 +106,10 @@ class CarDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onFavoriteClick() {
+    Prefs.setBool("favorite_car_${widget._car.id}", !_favorite);
+    setState(() => _favorite = !_favorite);
   }
 }
