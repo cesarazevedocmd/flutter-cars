@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/car_type.dart';
+import 'package:car_project/data_base/car_dao.dart';
 import 'package:car_project/login/user_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,6 +25,12 @@ class CarApi {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final carList = bodyList.map<Car>((e) => Car.fromJson(e)).toList();
+
+        CarDAO carDao = CarDAO();
+        carList.forEach((car) {
+          carDao.save(car);
+        });
+
         return ApiResponse.ok(carList);
       }
       return ApiResponse.ok([]);

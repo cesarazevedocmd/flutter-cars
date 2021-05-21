@@ -20,4 +20,17 @@ class Car {
     this.latitude = map["latitude"];
     this.longitude = map["longitude"];
   }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = Map();
+    map["id"] = this.id;
+    map["nome"] = this.nome;
+    map["tipo"] = this.tipo;
+    map["descricao"] = this.descricao;
+    map["urlFoto"] = this.urlFoto;
+    map["urlVideo"] = this.urlVideo;
+    map["latitude"] = this.latitude;
+    map["longitude"] = this.longitude;
+    return map;
+  }
 }
