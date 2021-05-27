@@ -21,7 +21,7 @@ abstract class BasicDAO<T extends Entity> {
 
     final list = await dbClient.rawQuery("select * from $table");
 
-    return list.map<T>((map) => fromMap(map));
+    return list.map<T>((map) => fromMap(map)).toList();
   }
 
   Future<T> findById(int id) async {

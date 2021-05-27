@@ -5,7 +5,7 @@ import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import '../../car/widgets/car_list.dart';
+import '../../car/widgets/car_tabs_view.dart';
 import '../user.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void validateResult(ApiResponse<User> apiResponse) {
     if (apiResponse.success) {
-      push(context, CarList(), replace: true);
+      push(context, CarTabsView(), replace: true);
     } else {
       alert(context, apiResponse.error);
     }

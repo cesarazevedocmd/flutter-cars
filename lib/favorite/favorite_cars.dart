@@ -1,24 +1,19 @@
-import 'package:car_project/car/manager/car_bloc.dart';
-import 'package:car_project/car/entity/car_type.dart';
 import 'package:car_project/car/widgets/cars_listview.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/car.dart';
+import '../car/entity/car.dart';
+import 'favorite_bloc.dart';
 
-class CarsPage extends StatefulWidget {
-  final CarType _type;
-
-  CarsPage(this._type);
-
+class FavoriteCars extends StatefulWidget {
   @override
-  _CarsPageState createState() => _CarsPageState();
+  _FavoriteCarsState createState() => _FavoriteCarsState();
 }
 
-class _CarsPageState extends State<CarsPage> with AutomaticKeepAliveClientMixin<CarsPage> {
+class _FavoriteCarsState extends State<FavoriteCars> with AutomaticKeepAliveClientMixin<FavoriteCars> {
   @override
   bool get wantKeepAlive => true;
 
-  CarBloc _carBloc = CarBloc();
+  FavoriteBloc _favoriteBloc = FavoriteBloc();
 
   @override
   void initState() {
@@ -33,12 +28,12 @@ class _CarsPageState extends State<CarsPage> with AutomaticKeepAliveClientMixin<
   }
 
   void _loadData() async {
-    _carBloc.load(widget._type);
+    _favoriteBloc.load();
   }
 
   StreamBuilder _body() {
     return StreamBuilder<List<Car>>(
-      stream: _carBloc.stream,
+      stream: _favoriteBloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print("ERROR LOAD CARS : ${snapshot.error}");
@@ -58,12 +53,12 @@ class _CarsPageState extends State<CarsPage> with AutomaticKeepAliveClientMixin<
   }
 
   Future _requestCars() {
-    return _carBloc.load(widget._type);
+    return _favoriteBloc.load();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _carBloc.dispose();
+    _favoriteBloc.dispose();
   }
 }

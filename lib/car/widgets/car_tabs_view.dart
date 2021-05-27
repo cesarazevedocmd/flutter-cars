@@ -1,22 +1,23 @@
 import 'package:car_project/car/entity/car_type.dart';
-import 'package:car_project/car/widgets/cars_page.dart';
+import 'package:car_project/car/widgets/cars_page_by_type.dart';
 import 'package:car_project/car/widgets/drawer_list.dart';
+import 'package:car_project/favorite/favorite_cars.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 
-class CarList extends StatefulWidget {
+class CarTabsView extends StatefulWidget {
   @override
-  _CarListState createState() => _CarListState();
+  _CarTabsViewState createState() => _CarTabsViewState();
 }
 
-class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<CarList> {
+class _CarTabsViewState extends State<CarTabsView> with SingleTickerProviderStateMixin<CarTabsView> {
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 4);
     _tabController.addListener(() {
       Prefs.setInt("tabIndex", _tabController.index);
     });
@@ -44,9 +45,10 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
         : TabBarView(
             controller: _tabController,
             children: [
-              CarsPage(CarType.classic),
-              CarsPage(CarType.sport),
-              CarsPage(CarType.lux),
+              CarsPageByType(CarType.classic),
+              CarsPageByType(CarType.sport),
+              CarsPageByType(CarType.lux),
+              FavoriteCars(),
             ],
           );
   }
@@ -60,6 +62,7 @@ class _CarListState extends State<CarList> with SingleTickerProviderStateMixin<C
               Tab(text: "CLASSIC"),
               Tab(text: "SPORT"),
               Tab(text: "LUX"),
+              Tab(text: "FAVORITES"),
             ],
           );
   }

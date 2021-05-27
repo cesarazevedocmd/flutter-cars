@@ -1,4 +1,5 @@
 import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/manager/car_dao.dart';
 import 'package:car_project/favorite/favorite.dart';
 import 'package:car_project/favorite/favorite_dao.dart';
 
@@ -18,5 +19,19 @@ class FavoriteService {
 
   static Future<bool> isFavorite(Car car) async {
     return _favoriteDAO.isFavorite(car.id);
+  }
+
+  static Future<List<Car>> getFavorites() async {
+    final allFavorites = await _favoriteDAO.findAll();
+
+    final carDAO = CarDAO();
+    List<Car> cars = [];
+
+    for (Favorite favorite in allFavorites) {
+      final car = await carDAO.findById(favorite.id);
+      cars.add(car);
+    }
+
+    return cars;
   }
 }
