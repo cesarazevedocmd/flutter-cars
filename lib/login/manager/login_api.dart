@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:car_project/api/api_response.dart';
-import 'package:car_project/login/user.dart';
+import 'package:car_project/model/user.dart';
 import 'package:car_project/login/user_manager.dart';
 import 'package:http/http.dart' as http;
 

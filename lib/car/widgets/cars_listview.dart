@@ -1,7 +1,7 @@
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import 'car.dart';
+import '../../model/car.dart';
 import 'car_details.dart';
 
 class CarsListView extends StatelessWidget {

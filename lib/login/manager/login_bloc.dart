@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/api/basic_stream.dart';
-import 'package:car_project/login/login_api.dart';
-import 'package:car_project/login/user.dart';
+import 'package:car_project/model/user.dart';
+
+import 'login_api.dart';
 
 class LoginBloc extends BasicBloc<bool> {
   Future<ApiResponse<User>> doLogin(String login, String password) async {

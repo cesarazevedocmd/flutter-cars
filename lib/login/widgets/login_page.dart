@@ -1,12 +1,12 @@
 import 'package:car_project/api/api_response.dart';
+import 'package:car_project/login/manager/login_bloc.dart';
 import 'package:car_project/login/user_manager.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import '../car/car_list.dart';
-import 'login_bloc.dart';
-import 'user.dart';
+import '../../car/widgets/car_list.dart';
+import '../../model/user.dart';
 
 class LoginPage extends StatefulWidget {
   @override

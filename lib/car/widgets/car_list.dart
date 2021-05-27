@@ -1,6 +1,6 @@
-import 'package:car_project/car/car_type.dart';
-import 'package:car_project/car/cars_page.dart';
-import 'package:car_project/car/drawer_list.dart';
+import 'package:car_project/model/car_type.dart';
+import 'package:car_project/car/widgets/cars_page.dart';
+import 'package:car_project/car/widgets/drawer_list.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 

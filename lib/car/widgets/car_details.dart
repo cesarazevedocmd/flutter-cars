@@ -1,8 +1,8 @@
-import 'package:car_project/car/car.dart';
+import 'package:car_project/model/car.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 
-import 'car_details_options_menu.dart';
+import '../car_details_options_menu.dart';
 
 class CarDetails extends StatefulWidget {
   Car _car;
