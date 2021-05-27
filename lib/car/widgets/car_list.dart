@@ -1,4 +1,4 @@
-import 'package:car_project/model/car_type.dart';
+import 'package:car_project/car/entity/car_type.dart';
 import 'package:car_project/car/widgets/cars_page.dart';
 import 'package:car_project/car/widgets/drawer_list.dart';
 import 'package:car_project/util/prefs.dart';

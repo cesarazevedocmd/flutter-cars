@@ -6,7 +6,7 @@ import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
 import '../../car/widgets/car_list.dart';
-import '../../model/user.dart';
+import '../user.dart';
 
 class LoginPage extends StatefulWidget {
   @override

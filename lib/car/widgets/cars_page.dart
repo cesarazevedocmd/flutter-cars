@@ -1,9 +1,9 @@
 import 'package:car_project/car/manager/car_bloc.dart';
-import 'package:car_project/model/car_type.dart';
+import 'package:car_project/car/entity/car_type.dart';
 import 'package:car_project/car/widgets/cars_listview.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/car.dart';
+import '../entity/car.dart';
 
 class CarsPage extends StatefulWidget {
   final CarType _type;

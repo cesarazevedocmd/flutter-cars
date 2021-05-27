@@ -1,5 +1,5 @@
 import 'package:car_project/login/widgets/login_page.dart';
-import 'package:car_project/model/user.dart';
+import 'package:car_project/login/user.dart';
 import 'package:car_project/login/user_manager.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,9 @@
-import 'package:car_project/data_base/db_helper.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'entity.dart';
+import 'db_helper.dart';
 
-abstract class GenericDAO<T extends Entity> {
+abstract class BasicDAO<T extends Entity> {
   Future<Database> get db => DatabaseHelper.getInstance().db;
 
   String get table;

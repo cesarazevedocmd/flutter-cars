@@ -1,8 +1,8 @@
-import 'package:car_project/model/car.dart';
-import 'package:car_project/model/car_type.dart';
-import 'package:car_project/data_base/generic_dao.dart';
+import 'package:car_project/util/sql/basic_dao.dart';
+import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/entity/car_type.dart';
 
-class CarDAO extends GenericDAO<Car> {
+class CarDAO extends BasicDAO<Car> {
   @override
   Car fromMap(Map<String, dynamic> map) => Car.fromMap(map);
 

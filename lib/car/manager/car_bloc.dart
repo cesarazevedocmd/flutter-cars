@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:car_project/api/api_response.dart';
-import 'package:car_project/api/basic_stream.dart';
-import 'package:car_project/data_base/car_dao.dart';
-import 'package:car_project/model/car.dart';
-import 'package:car_project/model/car_type.dart';
+import 'package:car_project/api/basic_bloc.dart';
+import 'package:car_project/car/manager/car_dao.dart';
+import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/entity/car_type.dart';
 import 'package:car_project/util/network.dart';
 
 import 'car_api.dart';

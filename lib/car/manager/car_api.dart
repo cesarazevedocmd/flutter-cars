@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:car_project/api/api_response.dart';
+import 'package:car_project/car/entity/car_type.dart';
 import 'package:car_project/login/user_manager.dart';
-import 'package:car_project/model/car_type.dart';
 import 'package:http/http.dart' as http;
 
-import '../../model/car.dart';
+import '../entity/car.dart';
 
 class CarApi {
   static Future<ApiResponse<List<Car>>> loadCars(CarType type) async {

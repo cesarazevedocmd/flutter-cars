@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/car.dart';
+import '../entity/car.dart';
 import 'car_details.dart';
 
 class CarsListView extends StatelessWidget {
