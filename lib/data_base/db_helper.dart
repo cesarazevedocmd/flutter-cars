@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -31,15 +32,19 @@ class DatabaseHelper {
   }
 
   void _onCreate(Database db, int newVersion) async {
-    await db.execute(
-        'CREATE TABLE car(id INTEGER PRIMARY KEY, tipo TEXT, nome TEXT'
-        ', descricao TEXT, urlFoto TEXT, urlVideo TEXT, latitude TEXT, longitude TEXT)');
+    String createSQL = await rootBundle.loadString("assets/sql/create_tables.sql");
+
+    for (String sql in createSQL.split(";")) {
+      if (sql.trim().isNotEmpty) {
+        await db.execute(sql);
+      }
+    }
   }
 
   Future<FutureOr<void>> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print("_onUpgrade: oldVersion: $oldVersion > newVersion: $newVersion");
 
-    if(oldVersion == 1 && newVersion == 2) {
+    if (oldVersion == 1 && newVersion == 2) {
       await db.execute("alter table car add column NOVA TEXT");
     }
   }
