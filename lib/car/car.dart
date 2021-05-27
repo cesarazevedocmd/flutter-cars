@@ -1,4 +1,6 @@
-class Car {
+import 'package:car_project/data_base/entity.dart';
+
+class Car extends Entity{
   int id;
   String nome;
   String tipo;
@@ -10,7 +12,7 @@ class Car {
 
   Car({this.id, this.nome, this.tipo, this.descricao, this.urlFoto, this.urlVideo, this.latitude, this.longitude});
 
-  Car.fromJson(Map<String, dynamic> map) {
+  Car.fromMap(Map<String, dynamic> map) {
     this.id = map["id"];
     this.nome = map["nome"];
     this.tipo = map["tipo"];
@@ -21,7 +23,8 @@ class Car {
     this.longitude = map["longitude"];
   }
 
-  Map<String, dynamic> toJson() {
+  @override
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map();
     map["id"] = this.id;
     map["nome"] = this.nome;

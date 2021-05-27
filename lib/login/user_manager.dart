@@ -13,7 +13,7 @@ class UserManager {
 
   static Future<User> getUser() async {
     String userJson = await Prefs.getString("user.prefs");
-    if (userJson.isNotEmpty) return User.fromJson(json.decode(userJson));
+    if (userJson.isNotEmpty) return User.fromMap(json.decode(userJson));
     return null;
   }
 

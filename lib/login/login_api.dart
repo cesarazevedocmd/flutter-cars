@@ -19,7 +19,7 @@ class LoginApi {
       Map resultBody = json.decode(result.body);
 
       if (result.statusCode == 200 || result.statusCode == 201) {
-        final user = User.fromJson(resultBody);
+        final user = User.fromMap(resultBody);
         UserManager.saveUser(user);
         return ApiResponse.ok(user);
       }

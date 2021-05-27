@@ -6,7 +6,7 @@ class User {
   String token;
   List<String> roles;
 
-  User.fromJson(Map<String, dynamic> map) {
+  User.fromMap(Map<String, dynamic> map) {
     login = map["login"];
     nome = map["nome"];
     email = map["email"];
