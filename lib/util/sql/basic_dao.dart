@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
-import 'entity.dart';
 import 'db_helper.dart';
+import 'entity.dart';
 
 abstract class BasicDAO<T extends Entity> {
   Future<Database> get db => DatabaseHelper.getInstance().db;
@@ -16,24 +16,22 @@ abstract class BasicDAO<T extends Entity> {
     return id;
   }
 
-  Future<List<T>> findAll() async {
+  Future<List<T>> query(String sql, [List<Object> arguments]) async {
     final dbClient = await db;
 
-    final list = await dbClient.rawQuery("select * from $table");
+    final list = await dbClient.rawQuery(sql, arguments);
 
     return list.map<T>((map) => fromMap(map)).toList();
   }
 
+  Future<List<T>> findAll() async {
+    return query("select * from $table");
+  }
+
   Future<T> findById(int id) async {
-    final dbClient = await db;
+    final list = await query("select * from $table where id = ?", [id]);
 
-    final list = await dbClient.rawQuery("select * from $table where id = ?", [id]);
-
-    if (list.isNotEmpty) {
-      return fromMap(list.first);
-    }
-
-    return null;
+    return list.first ?? null;
   }
 
   Future<int> count() async {
