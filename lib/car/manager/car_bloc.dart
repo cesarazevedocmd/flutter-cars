@@ -11,13 +11,16 @@ import 'car_api.dart';
 class CarBloc extends BasicBloc<List<Car>> {
   Future<List<Car>> load(CarType carType) async {
     try {
-      ApiResponse<List<Car>> response = await CarApi.loadCars(carType);
+      bool isConnection = false;
 
-      CarDAO carDao = CarDAO();
-      response.result.forEach((car) => carDao.save(car));
-
-      add(response.result);
-      return response.result;
+      if (isConnection) {
+        ApiResponse<List<Car>> response = await CarApi.loadCars(carType);
+        response.result.forEach((car) => CarDAO().save(car));
+        add(response.result);
+        return response.result;
+      } else {
+        return await CarDAO().findAllByType(carType);
+      }
     } catch (error) {
       addError(error);
       return null;
