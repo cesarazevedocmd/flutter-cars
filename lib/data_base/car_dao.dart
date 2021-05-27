@@ -14,6 +14,6 @@ class CarDAO extends GenericDAO<Car> {
 
     final list = await dbClient.rawQuery("select * from $table where tipo = ?", [type.getType()]);
 
-    return list.map<Car>((map) => fromMap(map));
+    return list.map<Car>((car) => fromMap(car)).toList();
   }
 }
