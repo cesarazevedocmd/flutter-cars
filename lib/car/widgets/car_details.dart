@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/model/car.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _CarDetailsState extends State<CarDetails> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: [
-          Image.network(widget._car.urlFoto),
+          CachedNetworkImage(imageUrl: widget._car.urlFoto),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

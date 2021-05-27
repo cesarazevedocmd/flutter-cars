@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,13 @@ class CarsListView extends StatelessWidget {
   }
 
   Center _carImage(Car car) {
-    if (car.urlFoto != null && car.urlFoto.isNotEmpty) return Center(child: Image.network(car.urlFoto, height: 150));
+    if (car.urlFoto != null && car.urlFoto.isNotEmpty)
+      return Center(
+        child: CachedNetworkImage(
+          imageUrl: car.urlFoto,
+          height: 150,
+        ),
+      );
     return Center(child: Text("Photo not found"));
   }
 
