@@ -59,10 +59,10 @@ class _CarTabsViewState extends State<CarTabsView> with SingleTickerProviderStat
         : TabBar(
             controller: _tabController,
             tabs: [
-              Tab(text: "CLASSIC"),
-              Tab(text: "SPORT"),
-              Tab(text: "LUX"),
-              Tab(text: "FAVORITES"),
+              Tab(text: "CLASSIC", icon: Icon(Icons.directions_car)),
+              Tab(text: "SPORT", icon: Icon(Icons.directions_car)),
+              Tab(text: "LUX", icon: Icon(Icons.directions_car)),
+              Tab(text: "FAVORITES", icon: Icon(Icons.favorite)),
             ],
           );
   }
