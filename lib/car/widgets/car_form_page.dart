@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/car/entity/car.dart';
-import 'package:car_project/car/manager/car_dao.dart';
+import 'package:car_project/my_widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +21,6 @@ class _CarFormPageState extends State<CarFormPage> {
   final tType = TextEditingController();
 
   int _radioIndex = 0;
-
-  var _showProgress = false;
 
   Car get car => widget.car;
 
@@ -99,25 +97,7 @@ class _CarFormPageState extends State<CarFormPage> {
               labelText: 'Description',
             ),
           ),
-          Container(
-            height: 50,
-            margin: new EdgeInsets.only(top: 20.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(),
-              child: _showProgress
-                  ? CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : Text(
-                      "Save",
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-              onPressed: _onClickSave,
-            ),
-          )
+          MyButton("SAVE", _onClickSave)
         ],
       ),
     );
@@ -210,18 +190,10 @@ class _CarFormPageState extends State<CarFormPage> {
 
     print("Car: $carForEdition");
 
-    setState(() {
-      _showProgress = true;
-    });
-
     print("Salvar o car $carForEdition");
 
     await Future.delayed(Duration(seconds: 3));
     //CarDAO().save(carForEdition);
-
-    setState(() {
-      _showProgress = false;
-    });
 
     print("Fim.");
   }

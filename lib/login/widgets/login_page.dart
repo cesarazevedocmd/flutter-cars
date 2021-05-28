@@ -1,6 +1,7 @@
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/login/manager/login_bloc.dart';
 import 'package:car_project/login/user_manager.dart';
+import 'package:car_project/my_widgets/my_button.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
             initialData: false,
             stream: _loginBloc.stream,
             builder: (context, snapshot) {
-              return _buttonLogin(showLoading: snapshot.data);
+              return MyButton("LOGIN", _onClickLogin);
             },
           ),
         ],
@@ -68,19 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _buttonLogin({bool showLoading = false}) {
-    return Container(
-      height: 46,
-      child: ElevatedButton(
-        onPressed: _onClickLogin,
-        child: showLoading
-            ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.white)))
-            : Text("LOGIN", style: TextStyle(fontSize: 22, color: Colors.white)),
-      ),
-    );
-  }
-
-  void _onClickLogin() async {
+  Future _onClickLogin() async {
     if (!_formKey.currentState.validate()) return;
 
     var login = _loginEditingController.text;
