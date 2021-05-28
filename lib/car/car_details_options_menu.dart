@@ -10,7 +10,7 @@ class MyPopupMenuItem {
 
   MyPopupMenuItem(this.value, this._click);
 
-  performClick() => this._click.call();
+  performClick() => this._click();
 
   static List<PopupMenuItem<MyPopupMenuItem>> getPopupOptions(BuildContext context, Car car) {
     return [

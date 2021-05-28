@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MyButton extends StatefulWidget {
-
   String label;
 
   Function onPressed;
@@ -13,7 +12,6 @@ class MyButton extends StatefulWidget {
 }
 
 class _MyButtonState extends State<MyButton> {
-
   bool _loading = false;
 
   @override
@@ -31,7 +29,7 @@ class _MyButtonState extends State<MyButton> {
 
   _onPressed() async {
     setState(() => _loading = true);
-    await widget.onPressed.call();
+    await widget.onPressed();
     setState(() => _loading = false);
   }
 }
