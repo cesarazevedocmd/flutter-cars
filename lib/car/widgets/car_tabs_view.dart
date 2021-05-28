@@ -36,6 +36,14 @@ class _CarTabsViewState extends State<CarTabsView> with SingleTickerProviderStat
       ),
       drawer: DrawerList(),
       body: _tabBarViewOrNull(),
+      floatingActionButton: _floatinActionButton(),
+    );
+  }
+
+  FloatingActionButton _floatinActionButton() {
+    return FloatingActionButton(
+      onPressed: () {},
+      child: Icon(Icons.add),
     );
   }
 
