@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:car_project/util/sql/entity.dart';
 
-class Car extends Entity{
+class Car extends Entity {
   int id;
   String nome;
   String tipo;
@@ -35,5 +37,12 @@ class Car extends Entity{
     map["latitude"] = this.latitude;
     map["longitude"] = this.longitude;
     return map;
+  }
+
+  String toJson() => json.encode(toMap());
+
+  @override
+  String toString() {
+    return "id: '$id', name: '$nome', description: '$descricao'";
   }
 }

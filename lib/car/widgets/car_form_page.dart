@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/manager/car_api.dart';
 import 'package:car_project/my_widgets/my_button.dart';
+import 'package:car_project/util/alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -182,18 +185,17 @@ class _CarFormPageState extends State<CarFormPage> {
       return;
     }
 
-    // Cria o car
     var carForEdition = car ?? Car();
     carForEdition.nome = tName.text;
     carForEdition.descricao = tDesc.text;
     carForEdition.tipo = _getType();
 
-    print("Car: $carForEdition");
-
-    print("Salvar o car $carForEdition");
-
-    await Future.delayed(Duration(seconds: 3));
-    //CarDAO().save(carForEdition);
+    ApiResponse<bool> response = await CarApi.save(carForEdition);
+    if (response.result) {
+      alert(context, "Car saved with success");
+    } else {
+      alert(context, response.error);
+    }
 
     print("Fim.");
   }

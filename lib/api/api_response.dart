@@ -1,5 +1,5 @@
 class ApiResponse<T> {
-  bool success;
+  bool success = false;
   String error;
   T result;
 
