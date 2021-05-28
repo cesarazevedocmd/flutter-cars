@@ -20,6 +20,8 @@ class _CarsPageByTypeState extends State<CarsPageByType> with AutomaticKeepAlive
 
   CarBloc _carBloc = CarBloc();
 
+  CarType get carType => widget._type;
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +35,7 @@ class _CarsPageByTypeState extends State<CarsPageByType> with AutomaticKeepAlive
   }
 
   void _loadData() async {
-    _carBloc.load(widget._type);
+    _carBloc.load(carType);
   }
 
   StreamBuilder _body() {
@@ -58,7 +60,7 @@ class _CarsPageByTypeState extends State<CarsPageByType> with AutomaticKeepAlive
   }
 
   Future _requestCars() {
-    return _carBloc.load(widget._type);
+    return _carBloc.load(carType);
   }
 
   @override

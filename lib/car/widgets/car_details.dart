@@ -17,11 +17,13 @@ class CarDetails extends StatefulWidget {
 class _CarDetailsState extends State<CarDetails> {
   bool _favorite = false;
 
+  Car get car => widget._car;
+
   @override
   void initState() {
     super.initState();
 
-    FavoriteService.isFavorite(widget._car).then((result) {
+    FavoriteService.isFavorite(car).then((result) {
       setState(() => _favorite = result);
     });
   }
@@ -30,7 +32,7 @@ class _CarDetailsState extends State<CarDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget._car.nome),
+        title: Text(car.nome),
         actions: [
           IconButton(
             onPressed: () {},
@@ -42,7 +44,7 @@ class _CarDetailsState extends State<CarDetails> {
           ),
           PopupMenuButton<MyPopupMenuItem>(
             onSelected: (item) => item.performClick(),
-            itemBuilder: (context) => MyPopupMenuItem.getPopupOptions(context, widget._car),
+            itemBuilder: (context) => MyPopupMenuItem.getPopupOptions(context, car),
           ),
         ],
       ),
@@ -55,7 +57,7 @@ class _CarDetailsState extends State<CarDetails> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: [
-          CachedNetworkImage(imageUrl: widget._car.urlFoto),
+          CachedNetworkImage(imageUrl: car.urlFoto),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -63,7 +65,7 @@ class _CarDetailsState extends State<CarDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget._car.nome,
+                    car.nome,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -71,7 +73,7 @@ class _CarDetailsState extends State<CarDetails> {
                     ),
                   ),
                   Text(
-                    widget._car.tipo,
+                    car.tipo,
                     style: TextStyle(fontSize: 16),
                   ),
                 ],
@@ -80,7 +82,7 @@ class _CarDetailsState extends State<CarDetails> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.favorite, color: _favorite ? Colors.red : null, size: 40),
-                    onPressed: () => _onFavoriteClick(widget._car),
+                    onPressed: () => _onFavoriteClick(car),
                   ),
                   IconButton(
                     icon: Icon(Icons.share, color: Colors.blueGrey, size: 40),
@@ -95,7 +97,7 @@ class _CarDetailsState extends State<CarDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
-              Text(widget._car.descricao, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(car.descricao, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Text(
                   "Lorem ipsum condimentum elementum quisque etiam orci himenaeos ligula ut torquent proin ultrices, dapibus inceptos vel ut diam quisque elit nam neque mauris id elementum tellus, ut fermentum ultricies rhoncus curabitur etiam sapien auctor rhoncus quis senectus. aenean augue porta ad ante hac mauris, vitae a curabitur eros sodales curabitur, urna vel massa mauris semper. id varius quis massa eros eget euismod commodo, per duis eget auctor egestas porttitor, nisi duis elit ad fringilla cras. placerat dapibus hac nec fusce dui phasellus eu congue tortor, sit massa lacinia fames lobortis egestas duis hac orci, vivamus erat vitae eleifend non duis risus pellentesque."

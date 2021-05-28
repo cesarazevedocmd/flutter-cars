@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/manager/car_dao.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,7 @@ class _CarFormPageState extends State<CarFormPage> {
       key: this._formKey,
       child: ListView(
         children: <Widget>[
-          _headerFoto(),
+          _headerPhoto(),
           Text(
             "Clique na imagem para tirar uma foto",
             textAlign: TextAlign.center,
@@ -122,7 +123,7 @@ class _CarFormPageState extends State<CarFormPage> {
     );
   }
 
-  _headerFoto() {
+  _headerPhoto() {
     return car != null
         ? CachedNetworkImage(
             imageUrl: car.urlFoto,
@@ -176,9 +177,9 @@ class _CarFormPageState extends State<CarFormPage> {
 
   getIntType(Car car) {
     switch (car.tipo) {
-      case "classic":
+      case "classicos":
         return 0;
-      case "sport":
+      case "esportivos":
         return 1;
       default:
         return 2;
@@ -188,11 +189,11 @@ class _CarFormPageState extends State<CarFormPage> {
   String _getType() {
     switch (_radioIndex) {
       case 0:
-        return "classic";
+        return "classicos";
       case 1:
-        return "sport";
+        return "esportivos";
       default:
-        return "lux";
+        return "luxo";
     }
   }
 
@@ -216,6 +217,7 @@ class _CarFormPageState extends State<CarFormPage> {
     print("Salvar o car $carForEdition");
 
     await Future.delayed(Duration(seconds: 3));
+    //CarDAO().save(carForEdition);
 
     setState(() {
       _showProgress = false;
