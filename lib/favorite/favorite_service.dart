@@ -21,7 +21,7 @@ class FavoriteService {
     return _favoriteDAO.isFavorite(car.id);
   }
 
-  static Future<List<Car>> getFavoritesV2() async {
+  static Future<List<Car>> getFavorites() async {
     return await CarDAO().findFavorites();
   }
 }
