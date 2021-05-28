@@ -1,1 +1,0 @@
-SELECT * FROM car c, favorite f WHERE c.id = f.id;

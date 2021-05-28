@@ -4,7 +4,7 @@ import 'package:car_project/favorite/favorite_service.dart';
 
 class FavoriteBloc extends BasicBloc<List<Car>> {
   Future<List<Car>> load() async {
-    final favorites = await FavoriteService.getFavorites();
+    final favorites = await FavoriteService.getFavoritesV2();
     add(favorites);
     return favorites;
   }

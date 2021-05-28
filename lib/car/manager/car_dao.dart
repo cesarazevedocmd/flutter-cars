@@ -12,4 +12,8 @@ class CarDAO extends BasicDAO<Car> {
   Future<List<Car>> findAllByType(CarType type) async {
     return await query("select * from $table where tipo = ?", [type.getType()]);
   }
+
+  Future<List<Car>> findFavorites() async {
+    return await query("SELECT * FROM car c, favorite f WHERE c.id = f.id");
+  }
 }
