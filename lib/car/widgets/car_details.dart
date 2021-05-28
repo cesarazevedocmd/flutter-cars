@@ -42,7 +42,7 @@ class _CarDetailsState extends State<CarDetails> {
           ),
           PopupMenuButton<MyPopupMenuItem>(
             onSelected: (item) => item.performClick(),
-            itemBuilder: (context) => MyPopupMenuItem.getPopupOptions(),
+            itemBuilder: (context) => MyPopupMenuItem.getPopupOptions(context, widget._car),
           ),
         ],
       ),

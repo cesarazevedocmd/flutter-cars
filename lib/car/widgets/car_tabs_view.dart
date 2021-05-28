@@ -1,7 +1,9 @@
 import 'package:car_project/car/entity/car_type.dart';
+import 'package:car_project/car/widgets/car_form_page.dart';
 import 'package:car_project/car/widgets/cars_page_by_type.dart';
 import 'package:car_project/car/widgets/drawer_list.dart';
 import 'package:car_project/favorite/favorite_cars.dart';
+import 'package:car_project/util/nav.dart';
 import 'package:car_project/util/prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +44,9 @@ class _CarTabsViewState extends State<CarTabsView> with SingleTickerProviderStat
 
   FloatingActionButton _floatinActionButton() {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        push(context, CarFormPage());
+      },
       child: Icon(Icons.add),
     );
   }
