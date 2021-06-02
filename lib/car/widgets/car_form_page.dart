@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
 import 'package:car_project/car/manager/car_api.dart';
+import 'package:car_project/car/manager/car_bloc.dart';
 import 'package:car_project/my_widgets/my_button.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,8 @@ class _CarFormPageState extends State<CarFormPage> {
   final tName = TextEditingController();
   final tDesc = TextEditingController();
   final tType = TextEditingController();
+
+  final _carBloc = CarBloc();
 
   int _radioIndex = 0;
 
@@ -49,7 +52,7 @@ class _CarFormPageState extends State<CarFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(car != null ? car.nome : "Novo Car")),
+      appBar: AppBar(title: Text(car != null ? car.nome : "New Car")),
       body: Container(padding: EdgeInsets.all(16), child: _form()),
     );
   }
@@ -190,8 +193,8 @@ class _CarFormPageState extends State<CarFormPage> {
     carForEdition.descricao = tDesc.text;
     carForEdition.tipo = _getType();
 
-    ApiResponse<bool> response = await CarApi.save(carForEdition);
-    if (response.result) {
+    ApiResponse<bool> response = await _carBloc.save(carForEdition);
+    if (response.success && response.result != null) {
       alert(context, "Car saved with success", callback: () => Navigator.pop(context));
     } else {
       alert(context, response.error);

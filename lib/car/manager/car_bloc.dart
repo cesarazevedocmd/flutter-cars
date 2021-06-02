@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/api/basic_bloc.dart';
-import 'package:car_project/car/manager/car_dao.dart';
 import 'package:car_project/car/entity/car.dart';
 import 'package:car_project/car/entity/car_type.dart';
+import 'package:car_project/car/manager/car_dao.dart';
 import 'package:car_project/util/network.dart';
 
 import 'car_api.dart';
@@ -28,5 +28,9 @@ class CarBloc extends BasicBloc<List<Car>> {
       addError(error);
       return null;
     }
+  }
+
+  Future<ApiResponse<bool>> save(Car car) async {
+    return await CarApi.save(car);
   }
 }

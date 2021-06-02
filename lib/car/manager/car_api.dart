@@ -31,11 +31,14 @@ class CarApi {
 
   static Future<ApiResponse<bool>> save(Car car) async {
     try {
-      var url = Uri.parse("https://carros-springboot.herokuapp.com/api/v2/carros");
+      String url = "https://carros-springboot.herokuapp.com/api/v2/carros";
+      if (car.id != null) url += "/${car.id}";
 
       Map headers = await getHeader();
 
-      Response response = await http.post(url, headers: headers, body: car.toJson());
+      Response response = await (car.id == null
+          ? http.post(Uri.parse(url), headers: headers, body: car.toJson())
+          : http.put(Uri.parse(url), headers: headers, body: car.toJson()));
 
       if (response.statusCode >= 200 && response.statusCode <= 204) {
         Map bodyMap = json.decode(response.body);
@@ -45,6 +48,10 @@ class CarApi {
         print("NEW CAR: $car}");
 
         return ApiResponse.ok(true);
+      }
+
+      if (response.body == null || response.body.isEmpty) {
+        return ApiResponse.error("Error, check your data");
       }
 
       Map mapError = json.decode(response.body);
