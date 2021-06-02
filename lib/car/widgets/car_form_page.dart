@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
-import 'package:car_project/car/manager/car_api.dart';
 import 'package:car_project/car/manager/car_bloc.dart';
 import 'package:car_project/my_widgets/my_button.dart';
 import 'package:car_project/util/alert.dart';
@@ -199,7 +198,5 @@ class _CarFormPageState extends State<CarFormPage> {
     } else {
       alert(context, response.error);
     }
-
-    print("Fim.");
   }
 }

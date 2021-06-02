@@ -33,4 +33,14 @@ class CarBloc extends BasicBloc<List<Car>> {
   Future<ApiResponse<bool>> save(Car car) async {
     return await CarApi.save(car);
   }
+
+  Future<ApiResponse<bool>> delete(Car car) async {
+    ApiResponse<bool> response = await CarApi.delete(car);
+
+    if (response.success && response.result != null && response.result) {
+      CarDAO().delete(car.id);
+    }
+
+    return response;
+  }
 }

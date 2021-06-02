@@ -61,6 +61,21 @@ class CarApi {
     }
   }
 
+  static Future<ApiResponse<bool>> delete(Car car) async {
+    try {
+      String uri = "https://carros-springboot.herokuapp.com/api/v2/carros/${car.id}";
+
+      Map headers = await getHeader();
+
+      Response response = await http.delete(Uri.parse(uri), headers: headers);
+
+      if (response.statusCode == 200 && response.body != null && response.body.isNotEmpty) return ApiResponse.ok(true);
+      return ApiResponse.error("Car not deleted");
+    } catch (error) {
+      return ApiResponse.error(error);
+    }
+  }
+
   static Future<Map<String, String>> getHeader() async {
     final token = (await UserManager.getUser()).token;
     var headers = {

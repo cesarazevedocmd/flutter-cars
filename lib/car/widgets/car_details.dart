@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
+import 'package:car_project/car/manager/car_bloc.dart';
 import 'package:car_project/favorite/favorite_service.dart';
+import 'package:car_project/util/alert.dart';
+import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
 
-import '../car_details_options_menu.dart';
+import 'car_form_page.dart';
 
 class CarDetails extends StatefulWidget {
   Car _car;
@@ -42,9 +46,24 @@ class _CarDetailsState extends State<CarDetails> {
             onPressed: () {},
             icon: Icon(Icons.videocam),
           ),
-          PopupMenuButton<MyPopupMenuItem>(
-            onSelected: (item) => item.performClick(),
-            itemBuilder: (context) => MyPopupMenuItem.getPopupOptions(context, car),
+          PopupMenuButton<String>(
+            onSelected: (item) => _onItemSelected(item),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: "edit",
+                  child: Text("Edit"),
+                ),
+                PopupMenuItem(
+                  value: "delete",
+                  child: Text("Delete"),
+                ),
+                PopupMenuItem(
+                  value: "share",
+                  child: Text("Share"),
+                )
+              ];
+            },
           ),
         ],
       ),
@@ -121,5 +140,29 @@ class _CarDetailsState extends State<CarDetails> {
   void _onFavoriteClick(Car car) {
     FavoriteService.setFavorite(car);
     setState(() => _favorite = !_favorite);
+  }
+
+  _onItemSelected(String item) {
+    switch (item) {
+      case "edit":
+        push(context, CarFormPage(car: car));
+        break;
+      case "delete":
+        _deleteCar();
+        break;
+      case "share":
+        break;
+      default:
+        break;
+    }
+  }
+
+  void _deleteCar() async {
+    ApiResponse<bool> response = await CarBloc().delete(car);
+    if (response.success && response.result != null) {
+      alert(context, "Car deleted with success", callback: () => Navigator.pop(context));
+    } else {
+      alert(context, response.error);
+    }
   }
 }
