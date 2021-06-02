@@ -27,7 +27,7 @@ class CarsListView extends StatelessWidget {
                 children: [
                   _carImage(car),
                   Text(car.nome, style: TextStyle(fontSize: 22)),
-                  Text("Descrição...", style: TextStyle(fontSize: 16)),
+                  Text("Description...", style: TextStyle(fontSize: 16)),
                   _buttons(context, car),
                 ],
               ),
