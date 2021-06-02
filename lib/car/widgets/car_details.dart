@@ -57,7 +57,7 @@ class _CarDetailsState extends State<CarDetails> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: [
-          CachedNetworkImage(imageUrl: car.urlFoto),
+          _getImage(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -109,6 +109,13 @@ class _CarDetailsState extends State<CarDetails> {
         ],
       ),
     );
+  }
+
+  Widget _getImage() {
+    if (car.urlFoto == null || car.urlFoto.isEmpty) {
+      return Text("Photo is not available");
+    }
+    return CachedNetworkImage(imageUrl: car.urlFoto);
   }
 
   void _onFavoriteClick(Car car) {
