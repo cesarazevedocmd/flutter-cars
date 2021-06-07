@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/api/basic_bloc.dart';
@@ -30,7 +31,10 @@ class CarBloc extends BasicBloc<List<Car>> {
     }
   }
 
-  Future<ApiResponse<bool>> save(Car car) async {
+  Future<ApiResponse<bool>> save(Car car, {File imageFile}) async {
+    if (imageFile != null) {
+      car.urlFoto = await _uploadImage(imageFile);
+    }
     return await CarApi.save(car);
   }
 
@@ -42,5 +46,9 @@ class CarBloc extends BasicBloc<List<Car>> {
     }
 
     return response;
+  }
+
+  Future<String> _uploadImage(File imageFile) async {
+    return (await CarApi.uploadImage(imageFile)).result;
   }
 }

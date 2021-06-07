@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
@@ -6,6 +8,7 @@ import 'package:car_project/my_widgets/my_button.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CarFormPage extends StatefulWidget {
   final Car car;
@@ -28,6 +31,8 @@ class _CarFormPageState extends State<CarFormPage> {
   int _radioIndex = 0;
 
   Car get car => widget.car;
+
+  File _imageFile;
 
   String _validateName(String value) {
     if (value.isEmpty) {
@@ -109,14 +114,22 @@ class _CarFormPageState extends State<CarFormPage> {
   }
 
   _headerPhoto() {
-    return car != null
-        ? CachedNetworkImage(
-            imageUrl: car.urlFoto,
-          )
-        : Image.asset(
-            "assets/images/camera.png",
-            height: 150,
-          );
+    return InkWell(
+      onTap: _onClickCamera,
+      child: _imageFile != null
+          ? Image.file(
+              _imageFile,
+              height: 150,
+            )
+          : car != null
+              ? CachedNetworkImage(
+                  imageUrl: car.urlFoto,
+                )
+              : Image.asset(
+                  "assets/images/camera.png",
+                  height: 150,
+                ),
+    );
   }
 
   _radioType() {
@@ -197,6 +210,15 @@ class _CarFormPageState extends State<CarFormPage> {
       alert(context, "Car saved with success", callback: () => Navigator.pop(context));
     } else {
       alert(context, response.error);
+    }
+  }
+
+  void _onClickCamera() async {
+    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
     }
   }
 }
