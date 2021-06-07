@@ -134,7 +134,7 @@ class _CarDetailsState extends State<CarDetails> {
     if (car.urlFoto == null || car.urlFoto.isEmpty) {
       return Text("Photo is not available");
     }
-    return CachedNetworkImage(imageUrl: car.urlFoto);
+    return CachedNetworkImage(imageUrl: car.urlFoto, height: 200);
   }
 
   void _onFavoriteClick(Car car) {

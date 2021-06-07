@@ -205,7 +205,7 @@ class _CarFormPageState extends State<CarFormPage> {
     carForEdition.descricao = tDesc.text;
     carForEdition.tipo = _getType();
 
-    ApiResponse<bool> response = await _carBloc.save(carForEdition);
+    ApiResponse<bool> response = await _carBloc.save(carForEdition, imageFile: _imageFile);
     if (response.success && response.result != null) {
       alert(context, "Car saved with success", callback: () => Navigator.pop(context));
     } else {
