@@ -18,18 +18,22 @@ class CarsListView extends StatelessWidget {
         itemCount: _cars != null ? _cars.length : 0,
         itemBuilder: (BuildContext context, int index) {
           Car car = _cars[index];
-          return Card(
-            color: Colors.grey[100],
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _carImage(car),
-                  Text(car.nome, style: TextStyle(fontSize: 22)),
-                  Text("Description...", style: TextStyle(fontSize: 16)),
-                  _buttons(context, car),
-                ],
+          return InkWell(
+            onTap: () => _onClickCar(context, car),
+            onLongPress: () => _onLongClickCar(context, car),
+            child: Card(
+              color: Colors.grey[100],
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _carImage(car),
+                    Text(car.nome, style: TextStyle(fontSize: 22)),
+                    Text("Description...", style: TextStyle(fontSize: 16)),
+                    _buttons(context, car),
+                  ],
+                ),
               ),
             ),
           );
@@ -56,9 +60,7 @@ class CarsListView extends StatelessWidget {
         children: [
           TextButton(
             child: Text("DETAILS"),
-            onPressed: () {
-              push(context, CarDetails(car));
-            },
+            onPressed: () => _onClickCar(context, car),
           ),
           TextButton(
             child: Text("SHARE"),
@@ -67,5 +69,13 @@ class CarsListView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _onClickCar(BuildContext context, Car car) {
+    push(context, CarDetails(car));
+  }
+
+  _onLongClickCar(BuildContext context, Car car) {
+
   }
 }
