@@ -221,4 +221,10 @@ class _CarFormPageState extends State<CarFormPage> {
       });
     }
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _carBloc.dispose();
+  }
 }
