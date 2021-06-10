@@ -6,6 +6,7 @@ import 'package:car_project/favorite/favorite_service.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'car_form_page.dart';
 
@@ -43,7 +44,7 @@ class _CarDetailsState extends State<CarDetails> {
             icon: Icon(Icons.place),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () => _onClickVideo(context, car),
             icon: Icon(Icons.videocam),
           ),
           PopupMenuButton<String>(
@@ -164,5 +165,9 @@ class _CarDetailsState extends State<CarDetails> {
     } else {
       alert(context, response.error);
     }
+  }
+
+  _onClickVideo(BuildContext context, Car car) {
+    launch(car.urlVideo);
   }
 }
