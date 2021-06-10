@@ -64,7 +64,7 @@ class CarsListView extends StatelessWidget {
           ),
           TextButton(
             child: Text("SHARE"),
-            onPressed: () {},
+            onPressed: () => _onClickShare(),
           ),
         ],
       ),
@@ -76,6 +76,29 @@ class CarsListView extends StatelessWidget {
   }
 
   _onLongClickCar(BuildContext context, Car car) {
-
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(title: Text(car.nome), children: [
+            ListTile(
+              leading: Icon(Icons.directions_car),
+              title: Text("Details"),
+              onTap: () {
+                pop(context);
+                _onClickCar(context, car);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.share),
+              title: Text("Share"),
+              onTap: () {
+                pop(context);
+                _onClickShare();
+              },
+            ),
+          ]);
+        });
   }
+
+  void _onClickShare() {}
 }
