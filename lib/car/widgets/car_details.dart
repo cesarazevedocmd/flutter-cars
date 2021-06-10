@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/api/api_response.dart';
 import 'package:car_project/car/entity/car.dart';
 import 'package:car_project/car/manager/car_bloc.dart';
+import 'package:car_project/car/widgets/car_video.dart';
 import 'package:car_project/favorite/favorite_service.dart';
 import 'package:car_project/util/alert.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'car_form_page.dart';
 
@@ -168,6 +168,7 @@ class _CarDetailsState extends State<CarDetails> {
   }
 
   _onClickVideo(BuildContext context, Car car) {
-    launch(car.urlVideo);
+    //launch(car.urlVideo);
+    push(context, CarVideo(car));
   }
 }
