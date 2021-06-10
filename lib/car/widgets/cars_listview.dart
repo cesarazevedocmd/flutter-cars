@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_project/util/nav.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 import '../entity/car.dart';
 import 'car_details.dart';
@@ -64,7 +65,7 @@ class CarsListView extends StatelessWidget {
           ),
           TextButton(
             child: Text("SHARE"),
-            onPressed: () => _onClickShare(),
+            onPressed: () => _onClickShare(car),
           ),
         ],
       ),
@@ -97,14 +98,12 @@ class CarsListView extends StatelessWidget {
               title: Text("Share"),
               onTap: () {
                 pop(context);
-                _onClickShare();
+                _onClickShare(car);
               },
             ),
           ]);
         });
   }
-
-  void _onClickShare() {}
 
   void openModal(BuildContext context, Car car) {
     showModalBottomSheet(
@@ -130,11 +129,15 @@ class CarsListView extends StatelessWidget {
                 title: Text("Share"),
                 onTap: () {
                   pop(context);
-                  _onClickShare();
+                  _onClickShare(car);
                 },
               ),
             ],
           );
         });
+  }
+
+  void _onClickShare(Car car) {
+    Share.share("Name: ${car.nome}\nDescription: ${car.descricao}", subject: "Share Car");
   }
 }
