@@ -76,6 +76,10 @@ class CarsListView extends StatelessWidget {
   }
 
   _onLongClickCar(BuildContext context, Car car) {
+    openModal(context, car);
+  }
+
+  void openDialog(BuildContext context, Car car) {
     showDialog(
         context: context,
         builder: (context) {
@@ -101,4 +105,36 @@ class CarsListView extends StatelessWidget {
   }
 
   void _onClickShare() {}
+
+  void openModal(BuildContext context, Car car) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(car.nome, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              ),
+              ListTile(
+                leading: Icon(Icons.directions_car),
+                title: Text("Details"),
+                onTap: () {
+                  pop(context);
+                  _onClickCar(context, car);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text("Share"),
+                onTap: () {
+                  pop(context);
+                  _onClickShare();
+                },
+              ),
+            ],
+          );
+        });
+  }
 }
