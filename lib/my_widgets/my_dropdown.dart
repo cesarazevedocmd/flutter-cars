@@ -20,6 +20,7 @@ class _MyDropDownState<T extends MyDropDownItem> extends State<MyDropDown<T>> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<T>(
+      icon: const Icon(Icons.arrow_downward),
       value: widget.initialValue,
       isExpanded: true,
       hint: Text(widget.hint),
@@ -29,11 +30,6 @@ class _MyDropDownState<T extends MyDropDownItem> extends State<MyDropDown<T>> {
   }
 
   List<DropdownMenuItem<T>> _getItems() {
-    return widget.items
-        .map((item) => DropdownMenuItem(
-              value: item,
-              child: Text(item.text()),
-            ))
-        .toList();
+    return widget.items.map((item) => DropdownMenuItem(value: item, child: Text(item.text()))).toList();
   }
 }
